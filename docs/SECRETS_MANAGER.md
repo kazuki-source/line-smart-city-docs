@@ -37,7 +37,6 @@
 | DISTRIBUTION_TRIGGER_EMAIL | (配信モジュールの外部配信で利用) 受信メールアドレス | | `receive-mail@example.com` |
 | GENERAL_APP_VERSION              | バーション情報                                      |                                                                  | 1.0.0                                                        |
 | DNS_DOMAIN | (カスタムドメイン有効時に利用) ルートドメイン | | `example.com` |
-| DNS_DOMAIN_LIFF_CERTIFICATE_ID | (カスタムドメイン有効時に利用) 発行したACMの識別子 | | `abcdefgh-xxxx-xxxx-xxxx-xxxxxx123456` |
-| DNS_DOMAIN_LIFF_HOSTED_ZONE_ID | (カスタムドメイン有効時に利用) Route53のホストゾーンID | | `ABXXXXXXXXXXXXXXXXXX` |
+| CERTIFICATE_ARN | (カスタムドメイン有効時に利用) 発行したACMのARN | `./lsc.sh`により自動で設定される | `arn:aws:acm:us-east-1:000000000000:certificate/abcdefgh-xxxx-xxxx-xxxx-xxxxxx123456` |
+| DNS_HOSTED_ZONE_ID | (カスタムドメイン有効時に利用) Route53のホストゾーンID | | `ABXXXXXXXXXXXXXXXXXX` |
 | SLACK_WEBHOOK_URL | Slack AppのWebhook URL | AWS Lambdaのエラー通知に利用 | `https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX` |
-

@@ -7,6 +7,9 @@
     - [1-3. Secrets Manager設定項目を控える](#1-3-secrets-manager設定項目を控える)
   - [2. スタック作成後の設定](#2-スタック作成後の設定)
     - [2-1. LIFFの設定変更](#2-1-liffの設定変更)
+  - [3. AWS Cognitoを使用しない認証方式の設定方法](#3-aws-cognitoを使用しない認証方式の設定方法)
+    - [3-1. Secrets Manager設定項目を変更](#3-1-secrets-manager設定項目を変更)
+    - [3-2. API GatewayのCognito認証を解除](#3-2-api-gatewayのcognito認証を解除)
 
 ## 1. スタック作成前の設定
 先ずは1-1.〜1-3.の手順を行ってください。
@@ -15,7 +18,7 @@
 [LINE Developers](https://developers.line.biz/ja/)にログインします
 
 * プロバイダーの選択
-    * トップより [LINE Developers チャネル設定(Messaging API)](./LINE_DEVELOPERS_SCENARIO.md#1-1-line-developersでproviderを作成)で作成したプロバイダーを選択します
+    * トップより [LINE Developers チャネル設定(Messaging API)](./LINE_DEVELOPERS_SCENARIO.md#1-line-developersでproviderを作成)で作成したプロバイダーを選択します
 
 ### 1-2. LINEログイン チャネルを作成
 * チャネルの作成
@@ -64,11 +67,7 @@
 
 ### 2-1. LIFFの設定変更
 * 作成したLINE Loginチャネルにアクセスし、下記の設定を行います。
-    * 「LINE Login」タブの`Callback URL`
-        * Web appのスイッチをクリックし、`Callback URL`に下記を入力
-            * `deploy/secrets_manager/環境名.json` にある `VUE_APP_LIFF_AUTH_DOMAIN` の値 + `/oauth2/idpresponse`
-            * 入力例：`https://lsc-dev-xxxxxx-liff-users.auth.ap-northeast-1.amazoncognito.com/oauth2/idpresponse`
     * 作成したLIFFの`Endpoint URL`
         * 「LIFF」タブにあるLIFFの詳細設定 → `Endpoint URL`に下記を入力
             *  `deploy/secrets_manager/環境名.json` にある `VUE_APP_LIFF_WEB_URL` の値 + `/login`
-            * 入力例：`https://abcdefghi.cloudfront.net/login`
+            * 入力例：`https://liff.lsc.line-smartcity.com/login`

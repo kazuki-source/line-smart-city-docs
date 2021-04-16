@@ -163,8 +163,14 @@ $ ./lsc.sh secrets update
 $ ./lsc.sh setup
 ```
 
-* SAMのビルド途中でPython関係のエラーが出る場合は、[Docker](https://www.docker.com/products/docker-desktop)をインストールして起動し、`--useContainer`オプションを付けて実行してください。
+* 下記オプションを使用することで、スタック削除保護を有効化します。（本番環境では有効化を推奨）
+  
+    * ```bash
+      $ ./lsc.sh setup --enable-termination-protection
+        ```
     
+* SAMのビルド途中でPython関係のエラーが出る場合は、[Docker](https://www.docker.com/products/docker-desktop)をインストールして起動し、`--useContainer`オプションを付けて実行してください。
+  
     *  ```bash
        $ ./lsc.sh setup --useContainer
        ```
@@ -200,17 +206,20 @@ $ ./lsc.sh users
 * `Input username` で、ログインするユーザー名を入力します。
     * 最低5文字以上
 * `Input mail address` でメールアドレスを入力します（次のステップで設定したパスワードが送られてきます）
-* `Select Groups` でユーザーに追加するグループを選択します。
-    * デフォルトでは `admins` が選択されています。
-    * `admins` 以外のグループについては以下のグループ一覧をご覧ください。
-        * グループ一覧
-           * `admins`
-               * 全権限を保有
-           * `members`
-               * システム設定・ユーザ設定を除く、運用上の権限を保有
-    * `admins` 以外のグループを選択する場合、上下キーで移動してスペースキーで選択します
-    * `Select Groups`の選択が完了後、Enterキーで確定します
 * `Input password` では、パスワードを英数字8文字以上で入力します。
+* `Select Groups` でユーザーに追加するグループを選択します。
+    * 上下キーで移動してスペースキーでグループ名を選択します。
+    * デフォルトでは `admins` が選択されています。（今後`Administrator:admins` に変更される予定です）
+    * 古いグループ名 `admins`, `members`, `guests`, `operators`, `develop` が存在する場合がありますが、非推奨のため選択しないようお願いします。
+    * `Select Groups`の選択が完了後、Enterキーで確定します。
+    * グループ名は「所属チーム名:付与権限」で構成されます。
+    * 「所属チーム名」は業務における所属組織をイメージした要素です。（例：総務課、営業第一課、経理 など）
+        * `Administrator`は管理者チームです。新規チームについては管理画面より追加ください。
+    * 「付与権限」には以下の種類があります。
+        * admins：すべての操作が可能
+        * members：全体に影響を与える操作（システム設定、シナリオ切替、リッチメニュー切替）やユーザ管理等の操作以外
+        * operators：外部委託を想定した操作権限を付与（帳票の登録内容閲覧や編集・カレンダーの予約枠数の閲覧など）
+        * guests：基本的に読み取り権限のみ
 
 #### 2. 管理画面へのアクセス
 

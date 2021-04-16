@@ -11,26 +11,23 @@
 管理画面URLと帳票URL（LIFF）でカスタムドメインを設定する場合は、以下の手順を行ってください。
 
 ### 設定手順
-1. [AWS Certificate Manager](https://aws.amazon.com/jp/certificate-manager/) にて証明書発行 (バージニア北部リージョン)
-    * 証明書発行時の `ドメイン名` は`*.環境名.ルートドメイン (example.com など)` と入力
-3. シークレット修正
+1. シークレット修正
 
 `deploy/secrets_manager/環境名.json` を開き、下記のキーを編集します。
 
 | No | LINE OA | シークレットキー | 内容 | 備考 |
 |:---|:---|:---|:---|:---|
 | 1 | 共通 | DNS_DOMAIN | ルートドメイン (example.com など) | 以下のURLで使用されます。 <br><br> 管理画面URL： <br> https://admin.環境名.ルートドメイン  <br>  帳票URL（LIFF）： <br> https://liff.環境名.ルートドメイン |
-| 2 | 共通 | DNS_DOMAIN_LIFF_CERTIFICATE_ID | 発行したACMの識別子 | |
-| 3 | 共通 | DNS_DOMAIN_LIFF_HOSTED_ZONE_ID | 「1.」で作成したRoute53 ホストゾーンのID | |
+| 2 | 共通 | DNS_HOSTED_ZONE_ID | 「1.」で作成したRoute53 ホストゾーンのID | |
 
-4. シークレット反映
+2. シークレット反映
 jsonを編集後、下記を実行してシークレット更新します
 
 ```bash
 $ ./lsc.sh secrets update
 ```
 
-5. カスタムドメイン設定を有効にする
+3. カスタムドメイン設定を有効にする
 
 ```bash
 $ ./lsc.sh setupDomain true
@@ -54,15 +51,3 @@ us-west-2リージョンに、メール受信で利用するドメインを追�
 
 ![SESドメインアイデンティティ](./images/ses-domain-identity.png)
 
-## 4. SESのルールセット作成
-us-west-2リージョンに、SESのルールセットが無い場合は作成してください。
-
-1. us-west-2リージョンを選択
-2. SESより空のルールセットを作成する
-    * Rule set nameは `default-rule-set` を入力
-
-![SESルール作成](./images/ses-create-rule.png)
-
-* 参考
-  * [Creating a receipt rule set for Amazon SES email receiving（日本語）](https://docs.aws.amazon.com/ja_jp/ses/latest/DeveloperGuide/receiving-email-receipt-rule-set.html)
-  * [Creating a receipt rule set for Amazon SES email receiving（英語）](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-receipt-rule-set.html)

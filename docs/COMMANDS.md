@@ -106,6 +106,12 @@ $ ./lsc.sh users
 $ ./lsc.sh refresh
 ```
 
+#### オプション
+
+* `-S`, `--secrets` : デプロイを実行する前にシークレットのダウンロード・同期・更新を行います
+* `--useContainer` : SAMをビルドする際にDockerコンテナを利用します
+* `--enable-termination-protection` : CloudFormationスタックの削除保護を有効にします
+
 ### 全環境の削除
 
 下記を実行することで、全てのモジュールが削除されます。
@@ -225,11 +231,6 @@ $ ./lsc.sh platform statics delete --eliminate
 $ ./lsc.sh sam deleteBucket
 ```
 
-#### Cognitoユーザープールの削除
-
-* [ユーザープール](https://ap-northeast-1.console.aws.amazon.com/cognito/users/?region=ap-northeast-1#/)にアクセスし、自分の環境名をクリックします
-* 画面右上の「プールの削除」をクリックします
-
 
 ## 4. コマンド詳細
 
@@ -264,6 +265,8 @@ $ ./lsc.sh secrets <display|download|create|merge|update|delete>
 * download： シークレットのダウンロード （Secrets Manager → ローカルの環境名.json へ反映する）
 * create：　シークレットの作成
 * merge：　シークレットのマージ （lsc.example.jsonに追加された新規シークレットのキーをローカルの環境名.jsonへ同期する）
+    * 基本的にキーのみを同期しますが、以下のシークレットキーは「lsc.example.json」の値(バリュー)で上書きされます。
+        * `GENERAL_APP_VERSION`（バージョン情報）
 * update：　シークレットの更新 （ローカルの環境名.json → Secrets Managerへ反映する）
 * delete：　シークレットの削除
 
