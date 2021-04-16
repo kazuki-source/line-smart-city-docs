@@ -128,7 +128,7 @@ deploy/secrets_manager/環境名.json
 ./lsc.sh survey fresh
 ```
 
-##### deploy/secrets_manager/環境名.json：　VUE_APP_UNUSED_COGNITO: "0"の場合、以下の手順を実行する
+##### deploy/secrets_manager/環境名.json：　VUE_APP_UNUSED_COGNITO: "0"の場合、以下の手順を実行する （v1.6.0以下が対象です）
 
 1. Amazon Cognitoの「ユーザープールの管理」にアクセスする
 2. 「環境名-liff-users」を選択する
